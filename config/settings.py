@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_elasticsearch_dsl",
+    # Django REST framework Elasticsearch integration (this package)
+    "django_elasticsearch_dsl_drf",
     "rest_framework",
     "user.apps.UserConfig",
 ]

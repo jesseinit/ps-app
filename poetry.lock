@@ -75,6 +75,40 @@ six = "*"
 celery = ["celery (>=4.1.0)"]
 
 [[package]]
+name = "django-elasticsearch-dsl-drf"
+version = "0.22.5"
+description = "Integrate Elasticsearch DSL with Django REST framework."
+optional = false
+python-versions = ">=2.7"
+files = [
+    {file = "django-elasticsearch-dsl-drf-0.22.5.tar.gz", hash = "sha256:b444f168535ff99244cc995ec354a31abcbf3fc03bd7b11ec1a3f43c7208f63a"},
+    {file = "django_elasticsearch_dsl_drf-0.22.5-py2.py3-none-any.whl", hash = "sha256:fc0b3960e16f6c06de4f2ca4daf1134376fce4d496c1ddc218c23daddf6bcaa0"},
+]
+
+[package.dependencies]
+django-elasticsearch-dsl = ">=6.4.1"
+django-nine = ">=0.2"
+djangorestframework = "*"
+elasticsearch = "*"
+elasticsearch-dsl = "*"
+six = ">=1.9"
+
+[[package]]
+name = "django-nine"
+version = "0.2.7"
+description = "Version checking library."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-nine-0.2.7.tar.gz", hash = "sha256:304e0f83cea5a35359375fc919d00f9917b655c1d388244cbfc7363f59489177"},
+    {file = "django_nine-0.2.7-py2.py3-none-any.whl", hash = "sha256:4d93208ca5bb4a63bf65cf098a82ee469127b04ebde698d72fe12d258b73c291"},
+]
+
+[package.dependencies]
+Django = "*"
+packaging = "*"
+
+[[package]]
 name = "djangorestframework"
 version = "3.15.2"
 description = "Web APIs for Django, made easy."
@@ -390,4 +424,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "4c0cb639df0cedc5443a844a3526b8f916916e2c145fdc18e987d67388b4874d"
+content-hash = "b5013c94b5bef8904865c5a08e9dda84441931cec902e7263b3e5adb3f6428ec"
