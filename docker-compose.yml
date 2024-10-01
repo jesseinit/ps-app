@@ -1,0 +1,27 @@
+services:
+  ps-app:
+    build: .
+    container_name: ps-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.0
+    container_name: ps-elastic
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false # Disable security for simplicity
+      - xpack.security.http.ssl.enabled=false # Disable SSL for HTTP
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+volumes:
+  esdata:
