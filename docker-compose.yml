@@ -10,6 +10,8 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+    stdin_open: true
+    tty: true
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.9.0

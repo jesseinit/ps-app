@@ -157,3 +157,19 @@ class Users(models.Model):
     class Meta:
         managed = False
         db_table = "users"
+
+
+class Images(models.Model):
+    id = models.IntegerField(primary_key=True)
+    path = models.CharField(max_length=500, blank=True, null=True)
+    step_id = models.IntegerField(blank=True, null=True)
+    large_thumbnail_path = models.CharField(max_length=500, blank=True, null=True)
+    small_thumbnail_path = models.CharField(max_length=500, blank=True, null=True)
+    uuid = models.TextField(blank=True, null=True)
+    order = models.SmallIntegerField(blank=True, null=True)
+    lat = models.FloatField(blank=True, null=True)
+    lon = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = "images"
