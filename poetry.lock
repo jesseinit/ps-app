@@ -75,6 +75,20 @@ six = "*"
 celery = ["celery (>=4.1.0)"]
 
 [[package]]
+name = "djangorestframework"
+version = "3.15.2"
+description = "Web APIs for Django, made easy."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "djangorestframework-3.15.2-py3-none-any.whl", hash = "sha256:2b8871b062ba1aefc2de01f773875441a961fefbf79f5eed1e32b2f096944b20"},
+    {file = "djangorestframework-3.15.2.tar.gz", hash = "sha256:36fe88cd2d6c6bec23dca9804bab2ba5517a8bb9d8f47ebc68981b56840107ad"},
+]
+
+[package.dependencies]
+django = ">=4.2"
+
+[[package]]
 name = "elastic-transport"
 version = "8.15.0"
 description = "Transport classes and utilities shared among Python Elastic client libraries"
@@ -376,4 +390,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d17d2c3406f4574786787c22ec92a9cadaa3c1c75f172a7e9fecd65048713315"
+content-hash = "4c0cb639df0cedc5443a844a3526b8f916916e2c145fdc18e987d67388b4874d"
