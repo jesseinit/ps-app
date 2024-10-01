@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_elasticsearch_dsl",
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,10 @@ DATABASES = {
         "HOST": os.getenv("DB_HOST"),
         "PORT": os.getenv("DB_PORT"),
     }
+}
+
+ELASTICSEARCH_DSL = {
+    "default": {"hosts": "ps-elastic:9200"},
 }
 
 
