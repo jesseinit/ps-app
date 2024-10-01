@@ -32,8 +32,9 @@ class ImageSearchView(APIView):
         # Check if the parameter is an ID (numeric)
         if search_param.isdigit():
             image_id = int(search_param)
+            # Filter has been used here because apparently IDs on the table aren't unique
             image = models.Images.objects.filter(id=image_id)
-            serializer = ImagesSerializer(image)
+            serializer = ImagesSerializer(image, many=True)
             return Response(serializer.data)
 
         try:
@@ -45,8 +46,12 @@ class ImageSearchView(APIView):
             )
 
         # Find 10 nearest images based on Euclidean distance
-        images = models.Images.objects.annotate(
-            distance=Sqrt(Power(F("lat") - lat, 2) + Power(F("lon") - lon, 2))
-        ).order_by("distance")[:10]
+        images = (
+            models.Images.objects.exclude(lat__isnull=True, lon__isnull=True)
+            .annotate(
+                distance=Sqrt(Power(F("lat") - lat, 2) + Power(F("lon") - lon, 2))
+            )
+            .order_by("distance")[:10]
+        )
         serializer = ImagesSerializer(images, many=True)
         return Response(serializer.data)
