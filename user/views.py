@@ -7,6 +7,8 @@ from .serializers import ImagesSerializer
 from django.db.models import F, Sum, Case, IntegerField, When
 from django.db.models.functions import Sqrt, Power
 
+from django.contrib.postgres.search import SearchVector
+
 
 class UserScoreView(APIView):
     """Get User Score API"""
@@ -16,6 +18,9 @@ class UserScoreView(APIView):
     def get(self, request, user_id, *args, **kwargs):
         """Returns a user score"""
         # Calculate points based on whether steps have photos
+
+        # Figured out that this endpoint wasn't necesarily hanging or the connection timing out
+        # the query was just very slow hence why we thought it hung.
 
         trips_with_photo_points = models.Trips.objects.filter(user_id=user_id).annotate(
             step_photo_points=Sum(
@@ -109,4 +114,18 @@ class ImageSearchView(APIView):
             .order_by("distance")[:10]
         )
         serializer = ImagesSerializer(images, many=True)
+        return Response(serializer.data)
+
+
+class RelevantTripsView(APIView):
+
+    def get(self, request, search_param):
+        # Not Relevant but figured out that something this simple could have been a decent enough first iteration
+        # The search query essentially parses the name and summary fields to postgres tsvector data type and performs the lookup on those
+        relevant_trips = (
+            models.Trips.objects.annotate(search=SearchVector("name", "summary"))
+            .filter(search=search_param)
+            .order_by("quality_score", "likes")
+        )
+        serializer = serializers.TripsSerializer(relevant_trips[:10], many=True)
         return Response(serializer.data)

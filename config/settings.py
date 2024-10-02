@@ -28,6 +28,7 @@ DEBUG = True if os.getenv("DEBUG", "f") == "t" else False
 
 ALLOWED_HOSTS = ["*"]
 
+APPEND_SLASH = False
 
 # Application definition
 
