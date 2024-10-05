@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
+from django_cte import CTEManager
 
 # Create your models here.
 
@@ -40,10 +43,13 @@ class Trips(models.Model):
     featured_priority_for_new_users = models.BooleanField(blank=True, null=True)
     planned_steps_visible = models.BooleanField(blank=True, null=True)
     future_timeline_last_modified = models.DateTimeField(blank=True, null=True)
+    search_vector = SearchVectorField(null=True)
+
+    objects = CTEManager()
 
     class Meta:
-        managed = False
         db_table = "trips"
+        indexes = [GinIndex(fields=["search_vector"])]
 
 
 class Media(models.Model):
@@ -71,7 +77,6 @@ class Media(models.Model):
     geolocation_from_step = models.BooleanField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = "media"
 
 
@@ -93,7 +98,6 @@ class Locations(models.Model):
     point = models.TextField(blank=True, null=True)  # This field type is a guess.
 
     class Meta:
-        managed = False
         db_table = "locations"
 
 
@@ -126,8 +130,9 @@ class Steps(models.Model):
     like_count = models.IntegerField(blank=True, null=True)
     spot_count = models.IntegerField(blank=True, null=True)
 
+    objects = CTEManager()
+
     class Meta:
-        managed = False
         db_table = "steps"
 
 
@@ -155,12 +160,11 @@ class Users(models.Model):
     has_multiple_devices = models.BooleanField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = "users"
 
 
 class Images(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     path = models.CharField(max_length=500, blank=True, null=True)
     step_id = models.IntegerField(blank=True, null=True)
     large_thumbnail_path = models.CharField(max_length=500, blank=True, null=True)
@@ -171,5 +175,4 @@ class Images(models.Model):
     lon = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = "images"
